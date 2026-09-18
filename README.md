@@ -1,4 +1,4 @@
-\# Oracle Database Lab
+\# Oracle Database Lab (Training Edition)
 
 
 
