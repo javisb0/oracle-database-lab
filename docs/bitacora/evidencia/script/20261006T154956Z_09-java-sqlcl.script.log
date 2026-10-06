@@ -1,0 +1,12 @@
+== Java ==
+scripts/deployment/env/09-verificar-java-sqlcl.sh: line 4: java: command not found
+
+== JAVA_HOME ==
+.
+
+== SQLcl ==
+
+Error: SQLcl requires Java 11 and above to run.
+       Found Java version no_java.
+       Please set JAVA_HOME to appropriate version.
+
