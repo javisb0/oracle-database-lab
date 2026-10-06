@@ -1,0 +1,126 @@
+== Esperando a que oralab-26ai este healthy (max. 5 min) ==
+ intento 1: starting
+ intento 2: starting
+ intento 3: starting
+ intento 4: starting
+ intento 5: starting
+ intento 6: starting
+ intento 7: starting
+ intento 8: starting
+ intento 9: starting
+ intento 10: starting
+ intento 11: starting
+ intento 12: starting
+ intento 13: starting
+ intento 14: starting
+ intento 15: starting
+ intento 16: starting
+ intento 17: starting
+ intento 18: starting
+ intento 19: starting
+ intento 20: starting
+ intento 21: starting
+ intento 22: starting
+ intento 23: starting
+ intento 24: starting
+ intento 25: starting
+ intento 26: starting
+ intento 27: starting
+ intento 28: starting
+ intento 29: starting
+ intento 30: starting
+ intento 31: starting
+ intento 32: starting
+ intento 33: starting
+ intento 34: starting
+ intento 35: starting
+ intento 36: starting
+ intento 37: starting
+ intento 38: starting
+ intento 39: starting
+ intento 40: starting
+ intento 41: starting
+ intento 42: starting
+ intento 43: starting
+ intento 44: starting
+ intento 45: starting
+ intento 46: starting
+ intento 47: starting
+ intento 48: starting
+ intento 49: starting
+ intento 50: starting
+ intento 51: starting
+ intento 52: starting
+ intento 53: starting
+ intento 54: starting
+ intento 55: starting
+ intento 56: starting
+ intento 57: starting
+ intento 58: starting
+ intento 59: starting
+ intento 60: starting
+AVISO: el contenedor no llego a healthy; revisa el log de abajo
+== Estado final ==
+== Registro de arranque (docker logs) ==
+Starting Oracle Net Listener.
+Oracle Net Listener started.
+Starting Oracle AI Database instance FREE.
+Oracle AI Database instance FREE started.
+
+The Oracle base remains unchanged with value /opt/oracle
+
+SQL*Plus: Release 23.26.3.0.0 - Production on Fri Oct 2 16:25:44 2026
+Version 23.26.3.0.0
+
+Copyright (c) 1982, 2026, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle AI Database 26ai Free Release 23.26.3.0.0 - Develop, Learn, and Run for Free
+Version 23.26.3.0.0
+
+SQL> 
+User altered.
+
+SQL> 
+User altered.
+
+SQL> 
+Session altered.
+
+SQL> 
+User altered.
+
+SQL> Disconnected from Oracle AI Database 26ai Free Release 23.26.3.0.0 - Develop, Learn, and Run for Free
+Version 23.26.3.0.0
+#########################
+DATABASE IS READY TO USE!
+#########################
+The following output is now a tail of the alert.log:
+CLID: P
+PDB$SEED(2):Autotune of undo retention is turned on. 
+PDB$SEED(2):Opening pdb with Resource Manager plan: DEFAULT_PLAN
+FREEPDB1(3):Autotune of undo retention is turned on. 
+2026-10-02T16:25:43.896165+00:00
+FREEPDB1(3):Opening pdb with Resource Manager plan: DEFAULT_PLAN
+Completed: Pluggable database FREEPDB1 opened read write 
+Completed: ALTER DATABASE OPEN
+2026-10-02T16:25:44.947601+00:00
+FREEPDB1(3):TABLE AUDSYS.AUD$UNIFIED: ADDED INTERVAL PARTITION SYS_P496 (4477) VALUES LESS THAN (TIMESTAMP' 2026-10-03 00:00:00')
+2026-10-02T16:25:45.588826+00:00
+===========================================================
+Dumping current patch information
+===========================================================
+No patches have been applied
+===========================================================
+2026-10-02T16:25:45.876308+00:00
+FREEPDB1(3):Resize operation completed for file# 13, fname /opt/oracle/oradata/FREE/FREEPDB1/sysaux01.dbf, old size 409600K, new size 419840K
+2026-10-02T16:25:49.819234+00:00
+TABLE SYS.WRP$_REPORTS: ADDED AUTOLIST FRAGMENT SYS_P656 (3) VALUES (( 1509902213, TO_DATE(' 2026-09-28 00:00:00', 'syyyy-mm-dd hh24:mi:ss', 'nls_calendar=gregorian') ))
+TABLE SYS.WRP$_REPORTS_DETAILS: ADDED AUTOLIST FRAGMENT SYS_P657 (3) VALUES (( 1509902213, TO_DATE(' 2026-09-28 00:00:00', 'syyyy-mm-dd hh24:mi:ss', 'nls_calendar=gregorian') ))
+TABLE SYS.WRP$_REPORTS_TIME_BANDS: ADDED AUTOLIST FRAGMENT SYS_P660 (3) VALUES (( 1509902213, TO_DATE(' 2026-09-28 00:00:00', 'syyyy-mm-dd hh24:mi:ss', 'nls_calendar=gregorian') ))
+2026-10-02T16:35:41.225860+00:00
+Resize operation completed for file# 3, fname /opt/oracle/oradata/FREE/sysaux01.dbf, old size 624640K, new size 655360K
+2026-10-02T16:45:42.189148+00:00
+Resize operation completed for file# 3, fname /opt/oracle/oradata/FREE/sysaux01.dbf, old size 655360K, new size 665600K
+FREEPDB1(3):Resize operation completed for file# 13, fname /opt/oracle/oradata/FREE/FREEPDB1/sysaux01.dbf, old size 419840K, new size 440320K

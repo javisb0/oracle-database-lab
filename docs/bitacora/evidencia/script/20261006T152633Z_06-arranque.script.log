@@ -1,0 +1,260 @@
+== Esperando a que oralab-26ai este healthy (max. 5 min) ==
+ intento 1: healthy
+== Estado final ==
+oralab-26ai Up 10 minutes (healthy)
+== Registro de arranque (docker logs) ==
+Starting Oracle Net Listener.
+Oracle Net Listener started.
+Starting Oracle AI Database instance FREE.
+Oracle AI Database instance FREE started.
+
+The Oracle base remains unchanged with value /opt/oracle
+
+SQL*Plus: Release 23.26.3.0.0 - Production on Fri Oct 2 16:25:44 2026
+Version 23.26.3.0.0
+
+Copyright (c) 1982, 2026, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle AI Database 26ai Free Release 23.26.3.0.0 - Develop, Learn, and Run for Free
+Version 23.26.3.0.0
+
+SQL> 
+User altered.
+
+SQL> 
+User altered.
+
+SQL> 
+Session altered.
+
+SQL> 
+User altered.
+
+SQL> Disconnected from Oracle AI Database 26ai Free Release 23.26.3.0.0 - Develop, Learn, and Run for Free
+Version 23.26.3.0.0
+#########################
+DATABASE IS READY TO USE!
+#########################
+The following output is now a tail of the alert.log:
+CLID: P
+PDB$SEED(2):Autotune of undo retention is turned on. 
+PDB$SEED(2):Opening pdb with Resource Manager plan: DEFAULT_PLAN
+FREEPDB1(3):Autotune of undo retention is turned on. 
+2026-10-02T16:25:43.896165+00:00
+FREEPDB1(3):Opening pdb with Resource Manager plan: DEFAULT_PLAN
+Completed: Pluggable database FREEPDB1 opened read write 
+Completed: ALTER DATABASE OPEN
+2026-10-02T16:25:44.947601+00:00
+FREEPDB1(3):TABLE AUDSYS.AUD$UNIFIED: ADDED INTERVAL PARTITION SYS_P496 (4477) VALUES LESS THAN (TIMESTAMP' 2026-10-03 00:00:00')
+2026-10-02T16:25:45.588826+00:00
+===========================================================
+Dumping current patch information
+===========================================================
+No patches have been applied
+===========================================================
+2026-10-02T16:25:45.876308+00:00
+FREEPDB1(3):Resize operation completed for file# 13, fname /opt/oracle/oradata/FREE/FREEPDB1/sysaux01.dbf, old size 409600K, new size 419840K
+2026-10-02T16:25:49.819234+00:00
+TABLE SYS.WRP$_REPORTS: ADDED AUTOLIST FRAGMENT SYS_P656 (3) VALUES (( 1509902213, TO_DATE(' 2026-09-28 00:00:00', 'syyyy-mm-dd hh24:mi:ss', 'nls_calendar=gregorian') ))
+TABLE SYS.WRP$_REPORTS_DETAILS: ADDED AUTOLIST FRAGMENT SYS_P657 (3) VALUES (( 1509902213, TO_DATE(' 2026-09-28 00:00:00', 'syyyy-mm-dd hh24:mi:ss', 'nls_calendar=gregorian') ))
+TABLE SYS.WRP$_REPORTS_TIME_BANDS: ADDED AUTOLIST FRAGMENT SYS_P660 (3) VALUES (( 1509902213, TO_DATE(' 2026-09-28 00:00:00', 'syyyy-mm-dd hh24:mi:ss', 'nls_calendar=gregorian') ))
+2026-10-02T16:35:41.225860+00:00
+Resize operation completed for file# 3, fname /opt/oracle/oradata/FREE/sysaux01.dbf, old size 624640K, new size 655360K
+2026-10-02T16:45:42.189148+00:00
+Resize operation completed for file# 3, fname /opt/oracle/oradata/FREE/sysaux01.dbf, old size 655360K, new size 665600K
+FREEPDB1(3):Resize operation completed for file# 13, fname /opt/oracle/oradata/FREE/FREEPDB1/sysaux01.dbf, old size 419840K, new size 440320K
+Starting Oracle Net Listener.
+Oracle Net Listener started.
+Starting Oracle AI Database instance FREE.
+Oracle AI Database instance FREE started.
+
+The Oracle base remains unchanged with value /opt/oracle
+
+SQL*Plus: Release 23.26.3.0.0 - Production on Tue Oct 6 15:15:42 2026
+Version 23.26.3.0.0
+
+Copyright (c) 1982, 2026, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle AI Database 26ai Free Release 23.26.3.0.0 - Develop, Learn, and Run for Free
+Version 23.26.3.0.0
+
+SQL> 
+User altered.
+
+SQL> 
+User altered.
+
+SQL> 
+Session altered.
+
+SQL> 
+User altered.
+
+SQL> Disconnected from Oracle AI Database 26ai Free Release 23.26.3.0.0 - Develop, Learn, and Run for Free
+Version 23.26.3.0.0
+#########################
+DATABASE IS READY TO USE!
+#########################
+The following output is now a tail of the alert.log:
+CLID: P
+PDB$SEED(2):Autotune of undo retention is turned on. 
+PDB$SEED(2):Opening pdb with Resource Manager plan: DEFAULT_PLAN
+FREEPDB1(3):Autotune of undo retention is turned on. 
+2026-10-06T15:15:42.343860+00:00
+FREEPDB1(3):Opening pdb with Resource Manager plan: DEFAULT_PLAN
+Completed: Pluggable database FREEPDB1 opened read write 
+Completed: ALTER DATABASE OPEN
+2026-10-06T15:15:43.326866+00:00
+FREEPDB1(3):TABLE AUDSYS.AUD$UNIFIED: ADDED INTERVAL PARTITION SYS_P516 (4481) VALUES LESS THAN (TIMESTAMP' 2026-10-07 00:00:00')
+2026-10-06T15:15:43.674374+00:00
+===========================================================
+Dumping current patch information
+===========================================================
+No patches have been applied
+===========================================================
+2026-10-06T15:15:45.972109+00:00
+TABLE SYS.WRP$_REPORTS: ADDED AUTOLIST FRAGMENT SYS_P696 (4) VALUES (( 1509902213, TO_DATE(' 2026-10-05 00:00:00', 'syyyy-mm-dd hh24:mi:ss', 'nls_calendar=gregorian') ))
+TABLE SYS.WRP$_REPORTS_DETAILS: ADDED AUTOLIST FRAGMENT SYS_P697 (4) VALUES (( 1509902213, TO_DATE(' 2026-10-05 00:00:00', 'syyyy-mm-dd hh24:mi:ss', 'nls_calendar=gregorian') ))
+TABLE SYS.WRP$_REPORTS_TIME_BANDS: ADDED AUTOLIST FRAGMENT SYS_P700 (4) VALUES (( 1509902213, TO_DATE(' 2026-10-05 00:00:00', 'syyyy-mm-dd hh24:mi:ss', 'nls_calendar=gregorian') ))
+2026-10-06T15:15:47.733736+00:00
+--ATTENTION--
+Time drifted backward by (1000000) micro seconds at 1791299748 whereas allowed drift is 5000000
+2026-10-06T15:15:49.782393+00:00
+--ATTENTION--
+Time stall, backward drift ended at 1791299749 with drift 1000000
+2026-10-06T15:16:16.935948+00:00
+--ATTENTION--
+Time stalled at 2060824576
+2026-10-06T15:16:17.481671+00:00
+--ATTENTION--
+Time stall, backward drift ended at 1791299777 with drift 1000000
+2026-10-06T15:16:44.006050+00:00
+--ATTENTION--
+Time stalled at 2088824576
+2026-10-06T15:16:45.029799+00:00
+--ATTENTION--
+Time stall, backward drift ended at 1791299805 with drift 1000000
+2026-10-06T15:17:11.553405+00:00
+--ATTENTION--
+Time drifted backward by (1000000) micro seconds at 1791299832 whereas allowed drift is 5000000
+2026-10-06T15:17:13.573855+00:00
+--ATTENTION--
+Time stall, backward drift ended at 1791299833 with drift 1000000
+2026-10-06T15:17:40.176219+00:00
+--ATTENTION--
+Time stalled at 2144824576
+2026-10-06T15:17:41.206227+00:00
+--ATTENTION--
+Time stall, backward drift ended at 1791299861 with drift 1000000
+2026-10-06T15:18:07.798782+00:00
+--ATTENTION--
+Time drifted backward by (1000000) micro seconds at 1791299888 whereas allowed drift is 5000000
+2026-10-06T15:18:09.822725+00:00
+--ATTENTION--
+Time stall, backward drift ended at 1791299889 with drift 1000000
+2026-10-06T15:18:36.414700+00:00
+--ATTENTION--
+Time drifted backward by (1000000) micro seconds at 1791299917 whereas allowed drift is 5000000
+2026-10-06T15:18:38.487784+00:00
+--ATTENTION--
+Time stall, backward drift ended at 1791299918 with drift 1000000
+2026-10-06T15:19:04.890431+00:00
+--ATTENTION--
+Time drifted backward by (1000000) micro seconds at 1791299945 whereas allowed drift is 5000000
+2026-10-06T15:19:06.915136+00:00
+--ATTENTION--
+Time stall, backward drift ended at 1791299946 with drift 1000000
+2026-10-06T15:19:32.699801+00:00
+--ATTENTION--
+Time drifted backward by (1000000) micro seconds at 1791299973 whereas allowed drift is 5000000
+2026-10-06T15:19:34.738797+00:00
+--ATTENTION--
+Time stall, backward drift ended at 1791299974 with drift 1000000
+2026-10-06T15:20:01.720455+00:00
+--ATTENTION--
+Time stalled at 2285824576
+2026-10-06T15:20:02.244864+00:00
+--ATTENTION--
+Time stall, backward drift ended at 1791300002 with drift 1000000
+2026-10-06T15:20:28.807533+00:00
+--ATTENTION--
+Time drifted backward by (1000000) micro seconds at 1791300029 whereas allowed drift is 5000000
+2026-10-06T15:20:30.845403+00:00
+--ATTENTION--
+Time stall, backward drift ended at 1791300030 with drift 1000000
+2026-10-06T15:20:57.154213+00:00
+--ATTENTION--
+Time drifted backward by (1000000) micro seconds at 1791300058 whereas allowed drift is 5000000
+2026-10-06T15:20:59.200997+00:00
+--ATTENTION--
+Time stall, backward drift ended at 1791300059 with drift 1000000
+2026-10-06T15:21:25.975391+00:00
+--ATTENTION--
+Time stalled at 2369824576
+2026-10-06T15:21:26.536928+00:00
+--ATTENTION--
+Time stall, backward drift ended at 1791300086 with drift 1000000
+2026-10-06T15:21:52.997023+00:00
+--ATTENTION--
+Time drifted backward by (1000000) micro seconds at 1791300113 whereas allowed drift is 5000000
+2026-10-06T15:21:54.030533+00:00
+--ATTENTION--
+Time stall, backward drift ended at 1791300114 with drift 1000000
+2026-10-06T15:22:21.982917+00:00
+--ATTENTION--
+Time stalled at 2425824576
+2026-10-06T15:22:22.406882+00:00
+--ATTENTION--
+Time stall, backward drift ended at 1791300142 with drift 1000000
+2026-10-06T15:23:03.363780+00:00
+--ATTENTION--
+Time drifted backward by (1000000) micro seconds at 1791300184 whereas allowed drift is 5000000
+2026-10-06T15:23:05.433482+00:00
+--ATTENTION--
+Time stall, backward drift ended at 1791300185 with drift 1000000
+2026-10-06T15:23:16.795795+00:00
+--ATTENTION--
+Time stalled at 2480824576
+2026-10-06T15:23:17.848111+00:00
+--ATTENTION--
+Time stall, backward drift ended at 1791300197 with drift 1000000
+2026-10-06T15:23:45.471501+00:00
+--ATTENTION--
+Time drifted backward by (1000000) micro seconds at 1791300226 whereas allowed drift is 5000000
+2026-10-06T15:23:47.505847+00:00
+--ATTENTION--
+Time stall, backward drift ended at 1791300227 with drift 1000000
+2026-10-06T15:24:13.066475+00:00
+--ATTENTION--
+Time drifted backward by (1000000) micro seconds at 1791300254 whereas allowed drift is 5000000
+2026-10-06T15:24:15.088829+00:00
+--ATTENTION--
+Time stall, backward drift ended at 1791300255 with drift 1000000
+2026-10-06T15:24:42.069670+00:00
+--ATTENTION--
+Time stalled at 2566824576
+2026-10-06T15:24:43.120178+00:00
+--ATTENTION--
+Time stall, backward drift ended at 1791300283 with drift 1000000
+2026-10-06T15:25:09.326888+00:00
+--ATTENTION--
+Time drifted backward by (1000000) micro seconds at 1791300310 whereas allowed drift is 5000000
+2026-10-06T15:25:11.350898+00:00
+--ATTENTION--
+Time stall, backward drift ended at 1791300311 with drift 1000000
+2026-10-06T15:25:37.206593+00:00
+--ATTENTION--
+Time drifted backward by (1000000) micro seconds at 1791300338 whereas allowed drift is 5000000
+2026-10-06T15:25:39.363334+00:00
+--ATTENTION--
+Time stall, backward drift ended at 1791300339 with drift 1000000
+2026-10-06T15:26:06.262109+00:00
+--ATTENTION--
+Time drifted backward by (1000000) micro seconds at 1791300367 whereas allowed drift is 5000000
+2026-10-06T15:26:08.403860+00:00
+--ATTENTION--
+Time stall, backward drift ended at 1791300368 with drift 1000000
