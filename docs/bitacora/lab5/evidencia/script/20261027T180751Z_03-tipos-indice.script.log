@@ -1,0 +1,10 @@
+
+
+
+
+===== 1. ÚNICO (Q13, verificación de identidad): buscar Y garantizar que no hay dos DNI iguales =====
+ERROR:
+ORA-01756: quoted string not properly terminated
+Help: https://docs.oracle.com/error-help/db/ora-01756/
+
+
