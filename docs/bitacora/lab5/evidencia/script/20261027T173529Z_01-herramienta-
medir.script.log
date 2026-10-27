@@ -1,0 +1,44 @@
+
+Session altered.
+
+
+PL/SQL procedure successfully completed.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Package created.
+
+
+Warning: Package Body created with compilation errors.
+
+Errors for PACKAGE BODY LAB_TOOLS.MEDIR:
+
+LINE/COL ERROR
+-------- -----------------------------------------------------------------
+64/4	 PLS-00103: Encountered the symbol "INDICA" when expecting one of
+	 the following:
+	 := . ( @ % ;
+
+Prueba del banco de medida:
+ERROR:
+ORA-01756: quoted string not properly terminated
+Help: https://docs.oracle.com/error-help/db/ora-01756/
+
+
