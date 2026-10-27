@@ -1,0 +1,32 @@
+
+===== 1. El diccionario: altura, hojas, claves distintas y factor de agrupamiento de cada índice de
+SP2-0734: unknown command beginning "TiendaSur ..." - rest of line ignored.
+Help: https://docs.oracle.com/error-help/db/sp2-0734/
+
+TABLE_NA INDEX_NAME         UNICO         ALTURA      HOJAS     CLAVES   ENTRADAS         CF BLOQUES_TABLA
+-------- ------------------ --------- ---------- ---------- ---------- ---------- ---------- -------------
+CLIENTE  IX_CLI_PAIS_CIUDAD NONUNIQUE          3        349      33403     100000      99340          1517
+CLIENTE  PK_CLIENTE         UNIQUE             2        187     100000     100000       1477          1517
+CLIENTE  UX_CLI_EMAIL       UNIQUE             3        501     100000     100000      20203          1517
+PEDIDO   IX_PED_CLIENTE     NONUNIQUE          3       2216     100816    1000000     999041          5320
+PEDIDO   IX_PED_FECHA       NONUNIQUE          3       2653     994048    1000000       5220          5320
+PEDIDO   IX_PED_IMPORTE     NONUNIQUE          3       2204      49908    1000000     998078          5320
+PEDIDO   PK_PEDIDO          UNIQUE             3       1875    1000000    1000000       5220          5320
+(altura = BLEVEL + 1: BLEVEL cuenta solo los niveles de ramas, sin las hojas)
+
+===== 2. Por dentro: ANALYZE INDEX ... VALIDATE STRUCTURE llena INDEX_STATS (una fila, la del último
+SP2-0734: unknown command beginning "análisis)..." - rest of line ignored.
+Help: https://docs.oracle.com/error-help/db/sp2-0734/
+
+INDEX_NAME             ALTURA ENTRADAS_HOJA      HOJAS ENTRADAS_RAMA      RAMAS BYTES_POR_ENTRADA BYTES_UTILES_HOJA   PCT_USED   BORRADAS
+------------------ ---------- ------------- ---------- ------------- ---------- ----------------- ----------------- ---------- ----------
+IX_PED_CLIENTE              3       1000000       2216          2215          6              15.9              7996         90          0
+raíz tiene pocos)
+          *
+ERROR at line 6:
+ORA-06550: line 6, column 11:
+PLS-00103: Encountered the symbol "TIENE" when expecting one of the following:
+:= . ( @ % ;
+Help: https://docs.oracle.com/error-help/db/ora-06550/
+
+
