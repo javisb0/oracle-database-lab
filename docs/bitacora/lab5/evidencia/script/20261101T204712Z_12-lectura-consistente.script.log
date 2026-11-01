@@ -1,0 +1,105 @@
+################ SESIÓN B ################
+
+[B] 1. ¿Qué ve B? El valor CONFIRMADO, reconstruido con el undo (lectura consistente)
+FROM admin_academia.aca_estudiantes
+                    *
+ERROR at line 4:
+ORA-01219: Database or pluggable database not open. Queries allowed on fixed tables or views only.
+Help: https://docs.oracle.com/error-help/db/ora-01219/
+
+
+
+[B] 2. La transacción de A: bloques y registros de undo que ya consume (v$transaction)
+
+[B] 3. Bloqueos de A: TM (tabla, modo 3 = row exclusive) y TX (fila, modo 6 = exclusive)
+LEFT JOIN dba_objects o
+          *
+ERROR at line 7:
+ORA-01219: Database or pluggable database not open. Queries allowed on fixed tables or views only.
+Help: https://docs.oracle.com/error-help/db/ora-01219/
+
+
+
+[B] 4. B intenta bloquear la misma fila: esperar como mucho 3 s (error esperado: ORA-00054, fila bloqueada por A)
+FROM admin_academia.aca_estudiantes
+                    *
+ERROR at line 2:
+ORA-01219: Database or pluggable database not open. Queries allowed on fixed tables or views only.
+Help: https://docs.oracle.com/error-help/db/ora-01219/
+
+
+
+[B] 5. Esperamos a que A confirme...
+BEGIN DBMS_SESSION.SLEEP(22); END;
+
+      *
+ERROR at line 1:
+ORA-06550: line 1, column 7:
+PLS-00201: identifier 'DBMS_SESSION.SLEEP' must be declared
+ORA-06550: line 1, column 7:
+PL/SQL: Statement ignored
+Help: https://docs.oracle.com/error-help/db/ora-06550/
+
+
+FROM admin_academia.aca_estudiantes
+                    *
+ERROR at line 4:
+ORA-01219: Database or pluggable database not open. Queries allowed on fixed tables or views only.
+Help: https://docs.oracle.com/error-help/db/ora-01219/
+
+
+
+[B] 6. Consulta de flashback (Flashback Query): la fila tal como era hace 40 s, leída del undo
+FROM admin_academia.aca_estudiantes
+                    *
+ERROR at line 4:
+ORA-01219: Database or pluggable database not open. Queries allowed on fixed tables or views only.
+Help: https://docs.oracle.com/error-help/db/ora-01219/
+
+
+
+[B] 7. Reparación lógica con el undo: devolver la fila a su valor anterior (deja el lab repetible)
+UPDATE admin_academia.aca_estudiantes e
+*
+ERROR at line 1:
+ORA-01109: database not open
+Help: https://docs.oracle.com/error-help/db/ora-01109/
+
+
+FROM admin_academia.aca_estudiantes
+                    *
+ERROR at line 4:
+ORA-01219: Database or pluggable database not open. Queries allowed on fixed tables or views only.
+Help: https://docs.oracle.com/error-help/db/ora-01219/
+
+
+
+[B] 8. ¿Cuánto tiempo intenta Oracle conservar el undo? (undo_retention y v$undostat)
+
+NAME		     VALUE
+-------------------- ----------
+undo_management      AUTO
+undo_tablespace      UNDOTBS1
+undo_retention	     900
+
+DESDE HASTA   UNDOBLKS	 TXNCOUNT CONSULTA_MAS_LARGA_S RETENCION_AJUSTADA_S  ORA_01555
+----- ----- ---------- ---------- -------------------- -------------------- ----------
+20:39 20:47	    44	      598		   354		       1015	     0
+################ SESIÓN A (en paralelo) ################
+Session altered.
+[A] UPDATE de la fila 101 a EGRESADO, sin COMMIT todavía
+UPDATE admin_academia.aca_estudiantes SET estado = 'EGRESADO' WHERE estudiante_id = 101
+*
+ERROR at line 1:
+ORA-01109: database not open
+Help: https://docs.oracle.com/error-help/db/ora-01109/
+BEGIN DBMS_SESSION.SLEEP(25); END;
+      *
+ERROR at line 1:
+ORA-06550: line 1, column 7:
+PLS-00201: identifier 'DBMS_SESSION.SLEEP' must be declared
+ORA-06550: line 1, column 7:
+PL/SQL: Statement ignored
+Help: https://docs.oracle.com/error-help/db/ora-06550/
+Commit complete.
+[A] COMMIT hecho

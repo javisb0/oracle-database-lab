@@ -1,0 +1,10 @@
+
+Session altered.
+
+DECLARE n NUMBER;
+*
+ERROR at line 1:
+ORA-20004: V004 ya aplicada: TIENDASUR existe, no se hace nada
+ORA-06512: at line 4
+
+

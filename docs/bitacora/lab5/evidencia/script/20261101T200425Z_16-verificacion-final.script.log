@@ -1,0 +1,128 @@
+
+===== SALIDA SQL ORIGINAL =====
+open_mode=READ WRITE
+log_mode=ARCHIVELOG
+controlfiles=3
+grupos_1_miembro=0
+fra=definida
+fra_size_spfile=4294967296
+archivados=si
+pdbs=1
+ops_ro_alert=0
+rman=si
+FROM admin_academia.aca_estudiantes
+                    *
+ERROR at line 2:
+ORA-01219: Database or pluggable database not open. Queries allowed on fixed tables or views only.
+Help: https://docs.oracle.com/error-help/db/ora-01219/
+
+
+FROM admin_academia.aca_estudiantes
+                    *
+ERROR at line 2:
+ORA-01219: Database or pluggable database not open. Queries allowed on fixed tables or views only.
+Help: https://docs.oracle.com/error-help/db/ora-01219/
+
+
+FROM admin_academia.aca_matriculas
+                    *
+ERROR at line 2:
+ORA-01219: Database or pluggable database not open. Queries allowed on fixed tables or views only.
+Help: https://docs.oracle.com/error-help/db/ora-01219/
+
+
+FROM admin_academia.aca_estudiantes
+                    *
+ERROR at line 2:
+ORA-01219: Database or pluggable database not open. Queries allowed on fixed tables or views only.
+Help: https://docs.oracle.com/error-help/db/ora-01219/
+
+
+    (SELECT COUNT(*) FROM tiendasur.cliente) || '/' ||
+                                    *
+ERROR at line 2:
+ORA-01219: Database or pluggable database not open. Queries allowed on fixed tables or views only.
+Help: https://docs.oracle.com/error-help/db/ora-01219/
+
+
+FROM dba_indexes
+     *
+ERROR at line 3:
+ORA-01219: Database or pluggable database not open. Queries allowed on fixed tables or views only.
+Help: https://docs.oracle.com/error-help/db/ora-01219/
+
+
+FROM dba_indexes
+     *
+ERROR at line 2:
+ORA-01219: Database or pluggable database not open. Queries allowed on fixed tables or views only.
+Help: https://docs.oracle.com/error-help/db/ora-01219/
+
+
+FROM dba_indexes
+     *
+ERROR at line 2:
+ORA-01219: Database or pluggable database not open. Queries allowed on fixed tables or views only.
+Help: https://docs.oracle.com/error-help/db/ora-01219/
+
+
+FROM dba_objects
+     *
+ERROR at line 2:
+ORA-01219: Database or pluggable database not open. Queries allowed on fixed tables or views only.
+Help: https://docs.oracle.com/error-help/db/ora-01219/
+
+
+FROM dba_users
+     *
+ERROR at line 2:
+ORA-01219: Database or pluggable database not open. Queries allowed on fixed tables or views only.
+Help: https://docs.oracle.com/error-help/db/ora-01219/
+===== FIN SALIDA SQL =====
+
+== Parte A · Respaldo del Lab 4 ==
+ [OK] backup backups/20261027T165359Z_lab4-final íntegro
+== Partes B a H · Banco TiendaSur e índices ==
+ [FALLO] TiendaSur: clientes/pedidos: hay '', se esperaba '100000/1000000' -> repasa Parte B (V004)
+ [FALLO] banco de medida LAB_TOOLS.MEDIR: hay '', se esperaba 'VALID' -> repasa Parte B (01-herramienta-medir)
+ [FALLO] índices de PEDIDO tras V005: hay '', se esperaba 'IX_PED_CLI_FEC_CUB,IX_PED_CP,IX_PED_FECHA,IX_PED_PENDIENTES,PK_PEDIDO' -> repasa Parte G (V005)
+ [FALLO] DNI único garantizado por la base: hay '', se esperaba '1' -> repasa Parte G (V005)
+ [FALLO] índices invisibles olvidados: hay '', se esperaba '0' -> repasa Parte G (ciclo de vida)
+ [FALLO] esquema de pruebas LAB5_PRUEBAS borrado: hay '', se esperaba '0' -> repasa Parte H (07-divisiones-y-cola)
+== Partes I a L · SCN, control files, redo y ARCHIVELOG ==
+ [OK] copias del control file (3)
+ [OK] grupos de redo con un solo miembro (0)
+ [OK] modo de la base (ARCHIVELOG)
+ [OK] FRA configurada (definida)
+ [OK] tamaño de la FRA en el SPFILE (no el 2M del escenario) (4294967296)
+ [OK] hay redo archivado (si)
+== Partes M a P · Undo, simulacros y salud ==
+ [FALLO] fila 101 de vuelta a ACTIVO: hay '', se esperaba 'ACTIVO' -> repasa Parte M (reparación con flashback)
+ [FALLO] fila 102 de vuelta a ACTIVO: hay '', se esperaba 'ACTIVO' -> repasa Parte O (simulacro A)
+ [FALLO] matrículas restauradas: hay '', se esperaba '60000' -> repasa Parte O (simulacro C)
+ [FALLO] fila 104 de vuelta a ACTIVO: hay '', se esperaba 'ACTIVO' -> repasa Parte O (simulacro D)
+ [OK] hay copias RMAN completadas (si)
+ [OK] PDB de usuario (solo FREEPDB1) (1)
+ [FALLO] C##OPS_RO lee el alert log: hay '0', se esperaba '1' -> repasa Lab 4, Parte J
+ [OK] CDB abierta (READWRITE)
+== Evidencias ==
+ [OK] evidencia 00
+ [OK] evidencia 01
+ [OK] evidencia 02
+ [OK] evidencia 03
+ [OK] evidencia 04
+ [OK] evidencia 05
+ [OK] evidencia 06
+ [OK] evidencia 07
+ [OK] evidencia 08
+ [OK] evidencia 09
+ [OK] evidencia 10
+ [OK] evidencia 11
+ [OK] evidencia 12
+ [OK] evidencia 13
+ [OK] evidencia 14
+ [OK] evidencia 15
+ [OK] config/.env fuera de Git
+ [OK] backups/ fuera de Git
+
+RESULTADO: 11 FALLO(S). Corrige antes de abrir el PR.
