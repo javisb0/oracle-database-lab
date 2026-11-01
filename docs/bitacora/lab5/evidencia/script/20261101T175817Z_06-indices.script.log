@@ -1,0 +1,185 @@
+
+===== Escenario: hoy =====
+
+INDICES_EN_PEDIDO INDICES
+----------------- --------------------------------------------------------------------------------------------------------------
+                9 IX_PED_CANAL, IX_PED_CLIENTE, IX_PED_CLI_FEC, IX_PED_CP, IX_PED_ESTADO, IX_PED_FECHA, IX_PED_FEC_CLI,
+                  IX_PED_IMPORTE, PK_PEDIDO
+
+hoy: 2000 INSERT               filas=  2000 lecturas l??gicas=  60573 bloques modificados= 40306 redo=  4981 KB   65.7 ms | por fila: 20.2 bloques, 2550 bytes de redo
+hoy: 2000 UPDATE estado        filas=  2000 lecturas l??gicas=  20139 bloques modificados= 12070 redo=  1417 KB   23.3 ms | por fila: 6 bloques, 725 bytes de redo
+hoy: 2000 UPDATE importe       filas=  2000 lecturas l??gicas=  20140 bloques modificados= 12070 redo=  1472 KB   38.3 ms | por fila: 6 bloques, 754 bytes de redo
+hoy: 2000 DELETE               filas=  2000 lecturas l??gicas=  62730 bloques modificados= 40354 redo=  4740 KB     77 ms | por fila: 20.2 bloques, 2427 bytes de redo
+Propuesta del compañero creada: 5 índices más sobre PEDIDO
+
+===== Escenario: compañero =====
+
+INDICES_EN_PEDIDO INDICES
+----------------- --------------------------------------------------------------------------------------------------------------
+                9 IX_PED_CANAL, IX_PED_CLIENTE, IX_PED_CLI_FEC, IX_PED_CP, IX_PED_ESTADO, IX_PED_FECHA, IX_PED_FEC_CLI,
+                  IX_PED_IMPORTE, PK_PEDIDO
+
+compa??ero: 2000 INSERT        filas=  2000 lecturas l??gicas=  61304 bloques modificados= 40831 redo=  5255 KB  126.8 ms | por fila: 20.4 bloques, 2690 bytes de redo
+compa??ero: 2000 UPDATE estado filas=  2000 lecturas l??gicas=  20148 bloques modificados= 12075 redo=  1420 KB   21.9 ms | por fila: 6 bloques, 727 bytes de redo
+compa??ero: 2000 UPDATE import filas=  2000 lecturas l??gicas=  20140 bloques modificados= 12070 redo=  1472 KB   26.2 ms | por fila: 6 bloques, 754 bytes de redo
+compa??ero: 2000 DELETE        filas=  2000 lecturas l??gicas=  62650 bloques modificados= 40339 redo=  4738 KB     66 ms | por fila: 20.2 bloques, 2426 bytes de redo
+SP2-0042: unknown command "FOR i IN (" - rest of line ignored.
+Help: https://docs.oracle.com/error-help/db/sp2-0042/
+    ) LOOP
+    *
+ERROR at line 6:
+ORA-03048: SQL reserved word ')' is not syntactically valid following
+'...index_name <> 'PK_PEDIDO'
+'
+Help: https://docs.oracle.com/error-help/db/ora-03048/
+
+
+SP2-0042: unknown command "END LOOP" - rest of line ignored.
+Help: https://docs.oracle.com/error-help/db/sp2-0042/
+SP2-0042: unknown command "END" - rest of line ignored.
+Help: https://docs.oracle.com/error-help/db/sp2-0042/
+    ) LOOP
+    *
+ERROR at line 6:
+ORA-03048: SQL reserved word ')' is not syntactically valid following
+'...index_name <> 'PK_PEDIDO'
+'
+Help: https://docs.oracle.com/error-help/db/ora-03048/
+
+
+Ejecutamos la carga habitual de TiendaSur.
+Consultas Q2, Q3, Q7, Q8, Q9 y Q12.
+BEGIN lab_tools.medir.consulta('Q2 ultimo mes', q'[SELECT id_pedido, importe FROM tiendasur.pedido WHERE fecha_pedido >= CURRENT_DATE - INTERVAL '30' DAY]'); END;
+
+      *
+ERROR at line 1:
+ORA-06550: line 1, column 7:
+PLS-00201: identifier 'LAB_TOOLS.MEDIR' must be declared
+ORA-06550: line 1, column 7:
+PL/SQL: Statement ignored
+Help: https://docs.oracle.com/error-help/db/ora-06550/
+
+
+BEGIN lab_tools.medir.consulta('Q3 codigo postal', q'[SELECT id_pedido, estado FROM tiendasur.pedido WHERE codigo_postal = '30001']'); END;
+
+      *
+ERROR at line 1:
+ORA-06550: line 1, column 7:
+PLS-00201: identifier 'LAB_TOOLS.MEDIR' must be declared
+ORA-06550: line 1, column 7:
+PL/SQL: Statement ignored
+Help: https://docs.oracle.com/error-help/db/ora-06550/
+
+
+BEGIN lab_tools.medir.consulta('Q7 historial', q'[SELECT id_pedido, fecha_pedido, importe, estado FROM tiendasur.pedido WHERE id_cliente = 4711 AND fecha_pedido >= SYSDATE - 365 ORDER BY fecha_pedido DESC]'); END;
+
+      *
+ERROR at line 1:
+ORA-06550: line 1, column 7:
+PLS-00201: identifier 'LAB_TOOLS.MEDIR' must be declared
+ORA-06550: line 1, column 7:
+PL/SQL: Statement ignored
+Help: https://docs.oracle.com/error-help/db/ora-06550/
+
+
+BEGIN lab_tools.medir.consulta('Q8 contador', q'[SELECT COUNT(*) FROM tiendasur.pedido WHERE fecha_pedido >= TRUNC(SYSDATE, 'YYYY')]'); END;
+
+      *
+ERROR at line 1:
+ORA-06550: line 1, column 7:
+PLS-00201: identifier 'LAB_TOOLS.MEDIR' must be declared
+ORA-06550: line 1, column 7:
+PL/SQL: Statement ignored
+Help: https://docs.oracle.com/error-help/db/ora-06550/
+
+
+BEGIN lab_tools.medir.consulta('Q9 ultimos 20', q'[SELECT * FROM tiendasur.pedido ORDER BY fecha_pedido DESC FETCH FIRST 20 ROWS ONLY]'); END;
+
+      *
+ERROR at line 1:
+ORA-06550: line 1, column 7:
+PLS-00201: identifier 'LAB_TOOLS.MEDIR' must be declared
+ORA-06550: line 1, column 7:
+PL/SQL: Statement ignored
+Help: https://docs.oracle.com/error-help/db/ora-06550/
+
+
+BEGIN lab_tools.medir.consulta('Q12 pendientes', q'[SELECT id_pedido, id_cliente, fecha_pedido FROM tiendasur.pedido WHERE estado = 'P' ORDER BY fecha_pedido]'); END;
+
+      *
+ERROR at line 1:
+ORA-06550: line 1, column 7:
+PLS-00201: identifier 'LAB_TOOLS.MEDIR' must be declared
+ORA-06550: line 1, column 7:
+PL/SQL: Statement ignored
+Help: https://docs.oracle.com/error-help/db/ora-06550/
+
+
+
+Resultado del uso de los indices:
+
+no rows selected
+
+Desactivamos la monitorizacion.
+
+PL/SQL procedure successfully completed.
+
+En produccion la observacion debe durar semanas.
+Hay que incluir cierres de mes e informes trimestrales.
+Oracle 23ai dispone tambien de estadisticas automaticas de uso.
+
+===== PREGUNTA 2. VIABILIDAD: SELECTIVIDAD =====
+Comparamos la selectividad con el punto de equilibrio aproximado.
+
+no rows selected
+
+La selectividad depende de la distribucion real de los valores.
+Un valor poco frecuente puede justificar un indice.
+Un indice parcial puede ser mejor para estados poco frecuentes.
+
+===== PREGUNTA 3. ESCRITURA: COSTE DE MANTENIMIENTO =====
+Cada indice adicional aumenta el trabajo de los INSERT.
+Tambien aumenta el trabajo de UPDATE y DELETE.
+Consulta las medidas de 06-medir-dml.sql para comparar escenarios.
+El coste depende del numero de indices y de su estructura.
+
+===== PREGUNTA 4. REDUNDANCIA: PREFIJO IZQUIERDO =====
+Buscamos indices cuyas columnas sean prefijo de otros indices.
+
+no rows selected
+
+Un indice UNIQUE puede garantizar una regla de negocio.
+No debe eliminarse solo porque sea prefijo de otro indice.
+La clave ajena id_cliente debe tener un indice que empiece por id_cliente.
+Sin el, un DELETE de un cliente puede provocar comprobaciones costosas.
+
+===== PREGUNTA 5. CICLO DE VIDA: HACER INVISIBLE ANTES DE BORRAR =====
+Ocultamos temporalmente el indice IX_PED_IMPORTE.
+ALTER INDEX tiendasur.ix_ped_importe INVISIBLE
+*
+ERROR at line 1:
+ORA-01418: specified index does not exist
+Help: https://docs.oracle.com/error-help/db/ora-01418/
+
+
+
+no rows selected
+
+BEGIN lab_tools.medir.consulta('Q2 sin ix_ped_importe', q'[SELECT id_pedido, importe FROM tiendasur.pedido WHERE fecha_pedido >= CURRENT_DATE - INTERVAL '30' DAY]'); END;
+
+      *
+ERROR at line 1:
+ORA-06550: line 1, column 7:
+PLS-00201: identifier 'LAB_TOOLS.MEDIR' must be declared
+ORA-06550: line 1, column 7:
+PL/SQL: Statement ignored
+Help: https://docs.oracle.com/error-help/db/ora-06550/
+
+
+Un indice invisible no es utilizado normalmente por el optimizador.
+Oracle sigue manteniendolo durante INSERT, UPDATE y DELETE.
+Si una consulta empeora, puede hacerse visible de nuevo.
+Para recuperarlo:
+ALTER INDEX tiendasur.ix_ped_importe VISIBLE
+Si nadie lo necesita durante la observacion, puede eliminarse.
+La eliminacion definitiva se realizara mediante la migracion V005.

@@ -1,0 +1,45 @@
+
+Session altered.
+
+
+PL/SQL procedure successfully completed.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Package created.
+
+
+Warning: Package Body created with compilation errors.
+
+Errors for PACKAGE BODY LAB_TOOLS.MEDIR:
+
+LINE/COL ERROR
+-------- -----------------------------------------------------------------
+27/1	 PLS-00103: Encountered the symbol "CONSULTA" when expecting one
+	 of the following:
+	 begin end function pragma procedure
+
+27/10	 PLS-00049: bad bind variable 'DBMS_SQL'
+Prueba del banco de medida:
+ERROR:
+ORA-01756: quoted string not properly terminated
+Help: https://docs.oracle.com/error-help/db/ora-01756/
+
+

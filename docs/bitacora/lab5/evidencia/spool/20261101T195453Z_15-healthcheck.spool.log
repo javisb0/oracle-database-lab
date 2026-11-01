@@ -1,0 +1,90 @@
+SQL Format Cleared
+
+== 1. Disponibilidad ==
+
+COMPROBACION                       VALOR                                   
+---------------------------------- ----------------------------------------
+Instancia                          OPEN desde 2026-11-01 19:33             
+Base de datos                      READ WRITE · ARCHIVELOG                 
+PDB FREEPDB1                       MOUNTED                                 
+
+== 2. Espacio: tablespaces por encima del 80 % (vacío = bien) ==
+
+== 3. Recuperabilidad: FRA y último archivado ==
+
+COMPROBACION                       VALOR                                   
+---------------------------------- ----------------------------------------
+FRA usada                          96 de 4096 MB (2.4 %)                   
+
+'ÚLTIMOREDOARCHIVADO' NVL(TO_CHAR(MAX(
+--------------------- ----------------
+Último redo archivado 2026-11-01 19:37
+
+'COPIASDELCONTROLFILE'  TO_CHAR(COUNT(*))                       
+----------------------- ----------------------------------------
+Copias del control file 3                                       
+
+'GRUPOSDEREDOCON1SOLOMIEMBRO'     TO_CHAR(COUNT(*))                       
+--------------------------------- ----------------------------------------
+Grupos de redo con 1 solo miembro 0                                       
+
+== 4. Capacidad: uso frente a límites de la instancia (v$resource_limit) ==
+
+RESOURCE_NAME               AHORA     MAXIMO LIMITE    
+---------------------- ---------- ---------- ----------
+processes                      92        103        200
+sessions                      116        134        322
+transactions                    0          0  UNLIMITED
+
+== 5. Errores ORA- en el alert log en las últimas 24 h (v$diag_alert_ext) ==
+
+Error starting at line : 101 File @ file:/home/javier/oracle-database-lab/scripts/lab5/15-healthcheck.sql
+In command -
+SELECT
+    TO_CHAR(originating_timestamp, 'MM-DD HH24:MI') AS cuando,
+    SUBSTR(
+        REGEXP_SUBSTR(
+            message_text,
+            'ORA-[0-9]+[^' || CHR(10) || ']*'
+        ),
+        1,
+        90
+    ) AS mensaje
+FROM v$diag_alert_ext
+WHERE originating_timestamp > SYSTIMESTAMP - INTERVAL '1' DAY
+    AND message_text LIKE '%ORA-%'
+ORDER BY originating_timestamp DESC
+FETCH FIRST 10 ROWS ONLY
+Error at Command Line : 111 Column : 6 File @ file:/home/javier/oracle-database-lab/scripts/lab5/15-healthcheck.sql
+Error report -
+SQL Error: ORA-00942: table or view "SYS"."V_$DIAG_ALERT_EXT" does not exist
+Help: https://docs.oracle.com/error-help/db/ora-00942/
+
+== 6. Cambios de log por hora en las últimas 24 h (muchos = redo pequeño o carga alta) ==
+
+HORA         CAMBIOS
+--------- ----------
+11-01 17h          3
+11-01 18h         18
+11-01 19h          7
+
+== 7. Copias de seguridad RMAN: las últimas (vacío = NO hay copias: alarma) ==
+
+INICIO      INPUT_TYPE     STATUS             MB   SEGUNDOS
+----------- -------------- ---------- ---------- ----------
+11-01 19:46 DATAFILE FULL  FAILED              0          0
+11-01 19:45 DATAFILE FULL  FAILED              0          0
+11-01 19:44 DATAFILE FULL  FAILED              0          1
+11-01 19:42 DATAFILE FULL  FAILED              0          0
+11-01 19:37 DATAFILE FULL  COMPLETED          38          3
+
+== 8. Índices que piden atención (no válidos, invisibles olvidados, o con muchas hojas para sus filas) ==
+("sin estadísticas" en esquemas vacíos es esperable; en uno con datos, el optimizador trabaja a ciegas:
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+
+== 9. Undo: errores de "snapshot too old" (ORA-01555) o falta de espacio en las últimas 24 h (0 y 0 =
+
+ ORA_01555 SIN_ESPACIO_UNDO CONSULTA_MAS_LARGA_S
+---------- ---------------- --------------------
+         0                0                    0

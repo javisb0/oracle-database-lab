@@ -1,0 +1,26 @@
+Archivo víctima: n.º 16, /opt/oracle/oradata/FREE/FREEPDB1/academia01.dbf
+== 1. Copia de seguridad RMAN del tablespace (va a la FRA) ==
+Starting backup at 01-NOV-26
+piece handle=/opt/oracle/oradata/fra/FREE/55E54F210F100828E0630B00580ADFD0/backupset/2026_11_01/o1_mf_nnndf_LAB5_SIMULACRO_D_ogh58jsm_.bkp tag=LAB5_SIMULACRO_D comment=NONE
+Finished backup at 01-NOV-26
+piece handle=/opt/oracle/oradata/fra/FREE/autobackup/2026_11_01/o1_mf_s_1248205073_ogh58l8h_.bkp comment=NONE
+== 2. Un cambio confirmado DESPUÉS de la copia (la copia no lo tiene: solo está en el redo) ==
+104 -> EGRESADO (confirmado tras la copia)
+== 3. Se rompe el disco: el datafile desaparece ==
+== 4. Diagnóstico: la consulta falla y el alert log dice qué archivo y por qué ==
+FROM admin_academia.aca_estudiantes
+                    *
+ERROR at line 2:
+ORA-01116: error in opening database file 16
+ORA-01110: data file 16: '/opt/oracle/oradata/FREE/FREEPDB1/academia01.dbf'
+ORA-27041: unable to open file
+Linux-x86_64 Error: 2: No such file or directory
+Additional information: 3
+Help: https://docs.oracle.com/error-help/db/ora-01116/
+
+
+Linux-x86_64 Error: 2: No such file or directory
+ORA-01110: data file 16: '/opt/oracle/oradata/FREE/FREEPDB1/academia01.dbf'
+Linux-x86_64 Error: 2: No such file or directory
+== 5. Reparación: el archivo fuera de línea, RESTORE, RECOVER y otra vez en línea ==
+ Estado de FREEPDB1 antes de reparar: MOUNTED

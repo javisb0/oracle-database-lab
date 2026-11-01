@@ -1,0 +1,27 @@
+
+
+
+===== Paso 0: checkpoint para partir de una caché sin bloques sucios =====
+
+
+
+===== Paso 1: UPDATE de las 20 000 filas (sin cambiar el valor) y COMMIT =====
+
+
+
+===== Paso 2: ALTER SYSTEM CHECKPOINT: DBWn vuelca los bloques sucios a los datafiles =====
+
+
+
+
+===== Resultado: lo que cambió en cada paso =====
+SP2-0042: unknown command "UNION ALL" - rest of line ignored.
+Help: https://docs.oracle.com/error-help/db/sp2-0042/
+SP2-0042: unknown command "UNION ALL" - rest of line ignored.
+Help: https://docs.oracle.com/error-help/db/sp2-0042/
+
+'2.ALTERSYSTEMCHECKPOINT'  ROUND((35260848-35252216)/1024)    394-393	   55-55  9842-9489	     0
+-------------------------- ------------------------------- ---------- ---------- ---------- ----------
+2. ALTER SYSTEM CHECKPOINT				 8	    1	       0	353	     0
+(Las cifras son de TODA la instancia (V$SYSSTAT): incluyen trabajo de fondo y la limpieza diferida de bloques de partes anteriores.
+Varían de una ejecución a otra; lo que no cambia es el patrón: COMMIT mueve redo con LGWR y el CHECKPOINT mueve bloques con DBWn)

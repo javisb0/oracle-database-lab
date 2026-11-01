@@ -1,0 +1,18 @@
+
+Session altered.
+
+  SELECT COUNT(*) INTO n FROM dba_users WHERE username = 'TIENDASUR';
+                              *
+ERROR at line 3:
+ORA-06550: line 3, column 31:
+PL/SQL: ORA-01219: Database or pluggable database not open. Queries allowed on
+fixed tables or views only.
+ORA-06550: line 3, column 3:
+PL/SQL: SQL Statement ignored
+ORA-06550: line 4, column 17:
+PLS-00201: identifier 'RAISE_APPLICATION_ERROR' must be declared
+ORA-06550: line 4, column 17:
+PL/SQL: Statement ignored
+Help: https://docs.oracle.com/error-help/db/ora-06550/
+
+

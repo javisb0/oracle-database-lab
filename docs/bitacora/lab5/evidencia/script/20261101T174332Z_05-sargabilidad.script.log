@@ -1,0 +1,81 @@
+
+
+
+
+===== REGLA 1. FUNCION SOBRE LA COLUMNA =====
+Q1: inicio de sesion mediante email.
+Q1 rota                        filas=      1 lecturas l??gicas=   1523 f??sicas=    0    13.8ms
+                               plan: TABLE ACCESS FULL CLIENTE
+Q1 reescrita                   filas=      1 lecturas l??gicas=      4 f??sicas=    0      .2ms
+                               plan: TABLE ACCESS BY INDEX ROWID CLIENTE > INDEX UNIQUE SCAN UX_CLI_EMAIL
+La funcion se aplica al dato de entrada y no a la columna.
+El email ya se guarda en minusculas.
+
+===== REGLA 2. ARITMETICA SOBRE LA COLUMNA =====
+Q2: pedidos del ultimo mes.
+Q2 rota                        filas=  22156 lecturas l??gicas=   5276 f??sicas=    0    66.7ms
+                               plan: TABLE ACCESS FULL PEDIDO
+Q2 reescrita                   filas=  22156 lecturas l??gicas=    267 f??sicas=    0     4.6ms
+                               plan: TABLE ACCESS BY INDEX ROWID BATCHED PEDIDO > INDEX RANGE SCAN IX_PED_FECHA
+Se despeja la columna como en una ecuacion.
+La suma de 30 dias pasa al otro lado como una resta.
+
+===== REGLA 3. CONVERSION IMPLICITA DE TIPOS =====
+Q3: envios por codigo postal.
+Se compara una columna VARCHAR2 con un numero.
+Q3 rota                        filas=    102 lecturas l??gicas=   5232 f??sicas=    0    47.9ms
+                               plan: TABLE ACCESS FULL PEDIDO
+Q3 reescrita                   filas=    102 lecturas l??gicas=    106 f??sicas=    0      .3ms
+                               plan: TABLE ACCESS BY INDEX ROWID BATCHED PEDIDO > INDEX RANGE SCAN IX_PED_CP
+Comprobacion del predicado en el plan de ejecucion.
+
+COUNT(ESTADO)
+-------------
+          102
+
+PLAN_TABLE_OUTPUT
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   2 - filter(TO_NUMBER("CODIGO_POSTAL")=30001)
+Oracle puede convertir implicitamente la columna de texto a numero.
+Esto puede impedir el uso eficiente del indice.
+La comparacion correcta utiliza una cadena entre comillas.
+
+===== REGLA 4. COMODIN A LA IZQUIERDA =====
+Q4: buscador de atencion al cliente.
+Q4a LIKE %ez                   filas=  18902 lecturas l??gicas=   1523 f??sicas=    0    14.2ms
+                               plan: TABLE ACCESS FULL CLIENTE
+Q4b LIKE Gonz%                 filas=   2056 lecturas l??gicas=   2024 f??sicas=    0     2.9ms
+                               plan: TABLE ACCESS BY INDEX ROWID BATCHED CLIENTE > INDEX RANGE SCAN IX_CLI_APELLIDOS
+Un indice B-tree esta ordenado por el principio de la cadena.
+Gonz% permite buscar un rango; %ez no tiene un prefijo conocido.
+Para buscar por el final puede utilizarse Oracle Text o una columna invertida con indice.
+
+===== REGLA 5. OR CON UNA COLUMNA SIN INDICE =====
+Q5: identificar a un cliente por email o telefono.
+Q5 OR sin indice en telefono   filas=      1 lecturas l??gicas=   1486 f??sicas=    0     3.8ms
+                               plan: TABLE ACCESS FULL CLIENTE
+Q5 OR con los dos indices      filas=      1 lecturas l??gicas=      6 f??sicas=    0      .1ms
+                               plan: TABLE ACCESS BY INDEX ROWID BATCHED CLIENTE > BITMAP CONVERSION TO ROWIDS > BITMAP OR > BITMAP CONVERSION FROM ROWIDS > INDEX RANGE SCAN UX_CLI_EMAIL > BITMAP CONV
+ERSION FROM ROWIDS > INDEX RANGE SCAN IX_CLI_TELEFONO
+Q5 como UNION                  filas=      1 lecturas l??gicas=      7 f??sicas=    0      .1ms
+                               plan: HASH UNIQUE > UNION-ALL > TABLE ACCESS BY INDEX ROWID CLIENTE > INDEX UNIQUE SCAN UX_CLI_EMAIL > TABLE ACCESS BY INDEX ROWID BATCHED CLIENTE > INDEX RANGE SCAN IX_
+CLI_TELEFONO
+Un OR puede utilizar indices si cada rama tiene su propio indice.
+UNION permite ejecutar las dos busquedas por separado.
+
+===== BONUS. Q11: REESCRIBIR NO OBLIGA A USAR EL INDICE =====
+Busqueda de pedidos de un año concreto.
+Q11 rota EXTRACT               filas=      1 lecturas l??gicas=   5232 f??sicas=    0    55.3ms
+                               plan: SORT AGGREGATE > TABLE ACCESS FULL PEDIDO
+Q11 reescrita rango            filas=      1 lecturas l??gicas=   5232 f??sicas=    0    18.1ms
+                               plan: SORT AGGREGATE > TABLE ACCESS FULL PEDIDO
+Un año puede representar una parte importante de todos los pedidos.
+El recorrido completo puede ser la mejor opcion en este caso.
+La version con rango permite al optimizador estimar mejor las filas.
+Sargable no significa necesariamente que se utilice el indice.
+
+===== LIMPIEZA DE LOS INDICES TEMPORALES =====
+
+INDICES_TIENDASUR
+-----------------
+                7

@@ -1,0 +1,9 @@
+
+===== 1. Tablas: r filas, b bloques, R bytes por fila y bfr = r / b (compáralo con la ficha de la actividad 3.2) =====
+  FROM dba_tables WHERE owner = 'TIENDASUR' ORDER BY table_name
+       *
+ERROR at line 3:
+ORA-01219: Database or pluggable database not open. Queries allowed on fixed tables or views only.
+Help: https://docs.oracle.com/error-help/db/ora-01219/
+
+

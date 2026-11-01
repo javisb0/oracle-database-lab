@@ -1,0 +1,13 @@
+
+==========================================
+Escenario: hoy
+==========================================
+
+INDICES_EN_PEDIDO INDICES
+----------------- --------------------------------------------------------------------------------------------------------------
+                4 IX_PED_CLIENTE, IX_PED_FECHA, IX_PED_IMPORTE, PK_PEDIDO
+ERROR:
+ORA-01756: quoted string not properly terminated
+Help: https://docs.oracle.com/error-help/db/ora-01756/
+
+
