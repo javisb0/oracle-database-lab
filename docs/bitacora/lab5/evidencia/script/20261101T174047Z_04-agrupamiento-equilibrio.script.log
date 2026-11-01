@@ -1,0 +1,46 @@
+
+===== 1. FACTOR DE AGRUPAMIENTO SEGUN EL DICCIONARIO =====
+Compara el CF con los bloques y las filas de la tabla.
+
+INDEX_NAME               CF BLOQUES_TABLA FILAS_TABLA VEREDICTO
+---------------- ---------- ------------- ----------- ----------------------------------------------------
+PK_PEDIDO              5220          5320     1000000 BUENO: filas vecinas en el indice y en disco
+IX_PED_FECHA           5220          5320     1000000 BUENO: filas vecinas en el indice y en disco
+IX_PED_IMPORTE       998078          5320     1000000 MALO: casi cada entrada salta a otro bloque
+IX_PED_CLIENTE       999041          5320     1000000 MALO: casi cada entrada salta a otro bloque
+
+===== 2. CALCULO MANUAL DEL FACTOR DE AGRUPAMIENTO =====
+Cuenta cuantas veces cambia el bloque al recorrer las filas.
+
+INDEX_NAME       CF_CALCULADO
+---------------- ------------
+IX_PED_FECHA             5220
+IX_PED_CLIENTE         999041
+El calculo manual aproxima el CF contando los cambios de bloque.
+El orden de recorrido debe coincidir con el de cada indice.
+
+===== 3. CURVA DEL PUNTO DE EQUILIBRIO =====
+Mide las lecturas logicas para sumar el importe de distintos porcentajes.
+b = 5320 bloques, r = 1000000 filas, bfr = 188
+k %         filas   indice CF bueno   indice CF malo   tabla entera optimizador (CF malo)
+.01 %         100                 4              111           5232 indice
+.05 %         500                 7              478           5232 indice
+.1 %         1000                11              975           5232 indice
+.2 %         2000                19             2004           5232 recorrido completo
+.5 %         5000                42             4875           5232 recorrido completo
+1 %         10000                80             9920           5232 recorrido completo <- el indice malo lee mas que la tabla
+2 %         20000               159            19957           5232 recorrido completo <- el indice malo lee mas que la tabla
+5 %         50000               395            50041           5232 recorrido completo <- el indice malo lee mas que la tabla
+10 %       100000               789           100167           5232 recorrido completo <- el indice malo lee mas que la tabla
+20 %       200000              1576           200253           5232 recorrido completo <- el indice malo lee mas que la tabla
+50 %       500000              3938           500374           5232 recorrido completo <- el indice malo lee mas que la tabla
+100 %     1000000              7875          1001259           5232 recorrido completo <- el indice bueno pierde
+
+Teoria (Unidad 3, 3.1.8): con CF malo, cada fila puede provocar una lectura aleatoria. El indice compensa si k/r < (1/bfr) * (c_sec/c_aleat).
+En lecturas logicas (c_sec = c_aleat): k/r < 1/188 = .53 %.
+En disco, con c_sec/c_aleat = 1/5: k/r < .11 %. La lectura aleatoria es mas costosa.
+
+Con CF BUENO, el indice puede leer menos bloques de tabla.
+El CF depende del orden fisico de las filas respecto al indice.
+Reconstruir el indice NO garantiza mejorar el CF.
+Reordenar fisicamente la tabla puede mejorarlo.
