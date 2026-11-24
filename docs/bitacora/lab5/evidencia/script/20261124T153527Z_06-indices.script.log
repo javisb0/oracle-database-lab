@@ -1,0 +1,13 @@
+V005 ya está aplicada: solo se mide el escenario V005 (para repetir el experimento completo, restaura lab4-final)
+
+==========================================
+Escenario: V005
+==========================================
+
+INDICES_EN_PEDIDO INDICES
+----------------- --------------------------------------------------------------------------------------------------------------
+                5 IX_PED_CLI_FEC_CUB, IX_PED_CP, IX_PED_FECHA, IX_PED_PENDIENTES, PK_PEDIDO
+V005: 2000 INSERT              filas=  2000 lecturas l??gicas=  34388 bloques modificados= 24215 redo=  3144 KB   69.9 ms | por fila: 12.1 bloques, 1610 bytes de redo
+V005: 2000 UPDATE estado       filas=  2000 lecturas l??gicas=  24207 bloques modificados= 16101 redo=  2020 KB   45.1 ms | por fila: 8.1 bloques, 1034 bytes de redo
+V005: 2000 UPDATE importe      filas=  2000 lecturas l??gicas=  20158 bloques modificados= 12079 redo=  1586 KB   37.4 ms | por fila: 6 bloques, 812 bytes de redo
+V005: 2000 DELETE              filas=  2000 lecturas l??gicas=  32337 bloques modificados= 20184 redo=  2489 KB     61 ms | por fila: 10.1 bloques, 1274 bytes de redo
