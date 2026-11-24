@@ -1,0 +1,49 @@
+== EVIDENCIA alumno=E059 hora=2026-11-24T19:45:05Z origen=04-deltas
+== EVIDENCIA contenedor=496e6a6edc9f dbid=1509902213 arranque=2026-11-24T19:35:41 scn=8372541
+== 1. Tasas ya calculadas por MMON para ESTA PDB (V$CON_SYSMETRIC, último minuto) ==
+(V$SYSMETRIC son las de la instancia: dentro de una PDB sale vacía)
+
+METRIC_NAME			VALOR METRIC_UNIT
+-------------------------- ---------- ----------------------------
+Average Active Sessions 	    0 Active Sessions
+CPU Usage Per Sec		    0 CentiSeconds Per Second
+Database Time Per Sec		    0 CentiSeconds Per Second
+Executions Per Sec		    0 Executes Per Second
+User Transaction Per Sec	    0 Transactions Per Second
+== 2. Acumulados desde el arranque: sin el "desde cuándo" no significan nada ==
+
+ARRANQUE	 MINUTOS_ARRIBA
+---------------- --------------
+2026-11-24 19:35	      9
+
+STAT_NAME    SEGUNDOS
+---------- ----------
+DB time 	    5
+DB CPU		  1.6
+
+
+
+== 3. La carga conocida: 10 recorridos completos de PEDIDO (un millón de filas cada uno) ==
+
+
+
+== 4. El delta: lo que costó la carga ==
+
+MAGNITUD			      DELTA
+-------------------------------- ----------
+Tiempo de reloj (s)			 .5
+DB time (s)				.51
+DB CPU (s)				.43
+Lecturas lógicas                      53877
+Ejecuciones (incluye recursivas)	184
+Lecturas lógicas por recorrido         5388
+== 5. En qué ESPERA esta PDB desde el arranque (clases que no son Idle, acumulado) ==
+
+WAIT_CLASS	 SEGUNDOS    ESPERAS
+-------------- ---------- ----------
+Scheduler	      1.4	  35
+User I/O	       .4	3679
+Commit		       .2	   9
+Cluster 		0	   2
+System I/O		0	  33
+Concurrency		0	  57
