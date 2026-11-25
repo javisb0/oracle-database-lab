@@ -1,0 +1,67 @@
+== EVIDENCIA alumno=E059 hora=2026-11-24T19:47:12Z origen=06-probar-acceso
+== EVIDENCIA contenedor=496e6a6edc9f dbid=1509902213 arranque=2026-11-24T19:35:41 scn=8375438
+== 1. ANA_GARCIA (persona de secretaría) entra por el servicio freepdb1 ==
+Connection failed
+  USER          = ana_garcia
+  URL           = jdbc:oracle:thin:@//localhost:1521/freepdb1
+  Error Message = ORA-01017: invalid credential or not authorized; logon denied
+
+https://docs.oracle.com/error-help/db/ora-01017/
+
+-- Roles activos y privilegios de sistema de la sesión
+SP2-0640: Not connected
+SP2-0640: Not connected
+-- Lee Academia por el privilegio de esquema (también aca_matriculas, que nadie le concedió por nombre)
+SP2-0640: Not connected
+SP2-0640: Not connected
+-- Puede cambiar el ESTADO de un estudiante...
+SP2-0640: Not connected
+SP2-0640: Not connected
+-- ...pero no su nombre (error esperado: falta el privilegio UPDATE sobre esa columna)
+SP2-0640: Not connected
+-- ...ni borrar (error esperado)
+SP2-0640: Not connected
+SP2-0640: Not connected
+== 2. APP_ACADEMIA sigue funcionando tras pagar la deuda de acceso ==
+
+ROLE
+--------------------
+ROL_APP_ACADEMIA
+
+1 row selected. 
+
+
+ESTUDIANTES
+-----------
+      17600
+
+1 row selected. 
+
+
+1 row updated.
+
+
+Rollback complete.
+
+-- Ya no puede insertar en el histórico (el permiso temporal de la Parte F se retiró): error esperado
+
+Error starting at line : 12 File @ file:/home/javier/oracle-database-lab/scripts/lab6/06-app-sigue.sql
+In command -
+INSERT INTO carga_hist.registro (id, relleno) VALUES (-1, 'x')
+Error at Command Line : 12 Column : 24 File @ file:/home/javier/oracle-database-lab/scripts/lab6/06-app-sigue.sql
+Error report -
+SQL Error: ORA-00942: table or view "CARGA_HIST"."REGISTRO" does not exist
+Help: https://docs.oracle.com/error-help/db/ora-00942/
+== 3. Tres contraseñas erróneas y después la correcta ==
+ORA-01017: invalid credential or not authorized; logon denied
+ORA-01017: invalid credential or not authorized; logon denied
+ORA-01017: invalid credential or not authorized; logon denied
+ORA-01017: invalid credential or not authorized; logon denied
+-- El DBA atiende la incidencia (en el mundo real: tras confirmar la identidad de Ana por otro canal)
+ALTER USER ana_garcia ACCOUNT UNLOCK
+           *
+ERROR at line 1:
+ORA-01918: user 'ANA_GARCIA' does not exist
+Help: https://docs.oracle.com/error-help/db/ora-01918/
+
+
