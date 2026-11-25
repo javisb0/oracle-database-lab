@@ -1,0 +1,77 @@
+== EVIDENCIA alumno=E059 hora=2026-11-25T17:34:43Z origen=06-probar-acceso
+== EVIDENCIA contenedor=496e6a6edc9f dbid=1509902213 arranque=2026-11-25T17:18:11 scn=9386302
+== 1. ANA_GARCIA (persona de secretaría) entra por el servicio freepdb1 ==
+-- Roles activos y privilegios de sistema de la sesión
+
+ROLE
+--------------------------
+ROL_LECTURA_ACADEMIA
+ROL_SECRETARIA_ACADEMIA
+
+2 rows selected. 
+
+
+PRIVILEGE
+--------------------------
+CREATE SESSION
+
+1 row selected. 
+
+-- Lee Academia por el privilegio de esquema (también aca_matriculas, que nadie le concedió por nombre)
+
+ESTUDIANTES
+-----------
+      20000
+
+1 row selected. 
+
+
+MATRICULAS
+----------
+     60000
+
+1 row selected. 
+
+-- Puede cambiar el ESTADO de un estudiante...
+
+1 row updated.
+
+
+Rollback complete.
+
+-- ...pero no su nombre (error esperado: falta el privilegio UPDATE sobre esa columna)
+
+Error starting at line : 18 File @ file:/home/javier/oracle-database-lab/scripts/lab6/06-sesion-ana.sql
+In command -
+UPDATE admin_academia.aca_estudiantes SET nombres = 'Otro' WHERE estudiante_id = 105
+Error at Command Line : 18 Column : 23 File @ file:/home/javier/oracle-database-lab/scripts/lab6/06-sesion-ana.sql
+Error report -
+SQL Error: ORA-41900: missing UPDATE privilege on "ADMIN_ACADEMIA"."ACA_ESTUDIANTES"
+Help: https://docs.oracle.com/error-help/db/ora-41900/
+-- ...ni borrar (error esperado)
+
+Error starting at line : 20 File @ file:/home/javier/oracle-database-lab/scripts/lab6/06-sesion-ana.sql
+In command -
+DELETE FROM admin_academia.aca_estudiantes WHERE estudiante_id = 105
+Error at Command Line : 20 Column : 28 File @ file:/home/javier/oracle-database-lab/scripts/lab6/06-sesion-ana.sql
+Error report -
+SQL Error: ORA-41900: missing DELETE privilege on "ADMIN_ACADEMIA"."ACA_ESTUDIANTES"
+Help: https://docs.oracle.com/error-help/db/ora-41900/
+
+Rollback complete.
+
+== 2. APP_ACADEMIA sigue funcionando tras pagar la deuda de acceso ==
+
+ROLE
+--------------------
+ROL_APP_ACADEMIA
+
+1 row selected. 
+
+
+ESTUDIANTES
+-----------
+      17600
+
+1 row selected. 
+

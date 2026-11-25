@@ -1,0 +1,111 @@
+== EVIDENCIA alumno=E059 hora=2026-11-25T17:31:35Z origen=03-sesiones
+== EVIDENCIA contenedor=496e6a6edc9f dbid=1509902213 arranque=2026-11-25T17:18:11 scn=9386054
+== 1. ¿Qué servicios anuncia el listener? (deben aparecer freepdb1 y academia_app, READY) ==
+Service "academia_app" has 1 instance(s).
+  Instance "FREE", status READY, has 1 handler(s) for this service...
+Service "freepdb1" has 1 instance(s).
+  Instance "FREE", status READY, has 1 handler(s) for this service...
+== 2. La aplicación entra por el servicio academia_app y deja la fila 101 modificada SIN confirmar ==
+== 3. Lo que ve el DBA desde la raíz: quién es, por dónde entró, qué hace y cuánto tendría que deshacer ==
+
+  SID SERIAL# USERNAME	   SERVICE_NAME MODULE	   ACTION	  CLIENTE	  EVENT 	    CON SPID
+----- ------- ------------ ------------ ---------- -------------- --------------- ----------------- --- -------
+   60	  550 APP_ACADEMIA academia_app matriculas cierre-periodo ana.garcia@ucam enq: TX - row loc   3 1785
+										  k contention
+
+  231	37351 APP_ACADEMIA academia_app matriculas cierre-periodo		  PL/SQL lock timer   3 1096
+
+  SID  USED_UBLK  USED_UREC START_TIME
+----- ---------- ---------- --------------------
+  231	       1	  1 11/25/26 17:22:31
+   El SPID 1785 es un proceso de Linux dentro del contenedor:
+PID 1785  oracleFREE (LOCAL=NO) 
+State:	S (sleeping)
+VmRSS:	  185944 kB
+== 4. CANCEL SQL '60,550': cancela la llamada en curso (el SLEEP), pero la transacción SIGUE abierta ==
+
+System altered.
+
+
+TRANSACCIONES_ABIERTAS_DE_LA_APP
+--------------------------------
+			       1
+== 5. KILL SESSION '60,550' IMMEDIATE: la sesión termina y su UPDATE se DESHACE ==
+ALTER SYSTEM KILL SESSION '60,550' IMMEDIATE
+*
+ERROR at line 1:
+ORA-00031: session marked for kill
+Help: https://docs.oracle.com/error-help/db/ora-00031/
+
+
+
+SESIONES_APP_VIVAS
+------------------
+		 1
+
+ESTUDIANTE_ID ESTADO
+------------- --------------------
+	  101 ACTIVO
+-- Lo que vio la aplicación, de principio a fin --
+
+CONTENEDOR SERVICIO	 USUARIO       AUTENTICACION SID
+---------- ------------- ------------- ------------- -----
+FREEPDB1   academia_app  APP_ACADEMIA  PASSWORD      60
+
+1 row selected.
+
+
+PL/SQL procedure successfully completed.
+
+
+PL/SQL procedure successfully completed.
+
+UPDATE admin_academia.aca_estudiantes SET estado = 'EGRESADO' WHERE estudiante_id = 101
+                      *
+ERROR at line 1:
+ORA-01013: User requested cancel of current operation.
+Help: https://docs.oracle.com/error-help/db/ora-01013/
+
+
+BEGIN DBMS_SESSION.SLEEP(40); END;
+
+*
+ERROR at line 1:
+ORA-00028: session has been terminated
+ORA-06512: at "SYS.DBMS_SESSION", line 438
+ORA-06512: at line 1
+Help: https://docs.oracle.com/error-help/db/ora-00028/
+
+
+ERROR:
+ORA-03114: not connected to ORACLE
+Help: https://docs.oracle.com/error-help/db/ora-03114/
+
+
+ERROR:
+ORA-03114: not connected to ORACLE
+Help: https://docs.oracle.com/error-help/db/ora-03114/
+
+
+ERROR:
+ORA-03114: not connected to ORACLE
+Help: https://docs.oracle.com/error-help/db/ora-03114/
+
+
+-- Lo que quedó en el alert log: quién mató a quién --
+KILL SESSION for sid=(60, 550):
+  Reason = alter system kill session
+  Mode = KILL HARD SAFE -/-/-/-
+  Requestor = USER (orapid = 83, ospid = 1839, sid = 162,38108, inst = 1)
+    OS User = oracle
+    Database User = SYS (uid=0)
+    Module Name = sqlplus@496e6a6edc9f (TNS V1-V3)
+== 6. Escalera de privilegios: SYSOPER opera, pero no ve los datos ==
+USER is "PUBLIC"
+SELECT COUNT(*) FROM dba_users
+                     *
+ERROR at line 1:
+ORA-00942: table or view "SYS"."DBA_USERS" does not exist
+Help: https://docs.oracle.com/error-help/db/ora-00942/
+
+

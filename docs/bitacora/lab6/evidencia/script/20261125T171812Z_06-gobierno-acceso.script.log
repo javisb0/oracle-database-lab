@@ -1,0 +1,145 @@
+== EVIDENCIA alumno=E059 hora=2026-11-25T17:18:12Z origen=06-gobierno-acceso
+== EVIDENCIA base=no-disponible (hora de Ubuntu: la base no respondía)
+ERROR:
+ORA-65011: Pluggable database FREEPDB1 does not exist.
+Help: https://docs.oracle.com/error-help/db/ora-65011/
+
+
+== 1. No supongas los valores por defecto: consúltalos (perfil DEFAULT, parámetros de contraseña) ==
+SELECT resource_name, limit FROM dba_profiles WHERE profile = 'DEFAULT' AND resource_type = 'PASSWORD' ORDER BY resource_name
+                                 *
+ERROR at line 1:
+ORA-01219: Database or pluggable database not open. Queries allowed on fixed tables or views only.
+Help: https://docs.oracle.com/error-help/db/ora-01219/
+
+
+== 2. Un perfil para PERSONAS (bloqueo de 1 minuto: solo en laboratorio) ==
+  SELECT COUNT(*) INTO n FROM dba_profiles WHERE profile = 'PRF_PERSONAS';
+                              *
+ERROR at line 3:
+ORA-06550: line 3, column 31:
+PL/SQL: ORA-01219: Database or pluggable database not open. Queries allowed on fixed tables or views only.
+ORA-06550: line 3, column 3:
+PL/SQL: SQL Statement ignored
+Help: https://docs.oracle.com/error-help/db/ora-06550/
+
+
+-- La función de verificación rechaza una contraseña débil (error esperado: ORA-28003)
+CREATE USER prueba_debil IDENTIFIED BY "corta" PROFILE prf_personas
+*
+ERROR at line 1:
+ORA-01109: database not open
+Help: https://docs.oracle.com/error-help/db/ora-01109/
+
+
+== 3. Roles FUNCIONALES: lo que se da por rol se administra; lo que se da disperso se persigue ==
+    SELECT COUNT(*) INTO n FROM dba_roles WHERE role = UPPER(p);
+                                *
+ERROR at line 4:
+ORA-06550: line 4, column 33:
+PL/SQL: ORA-01219: Database or pluggable database not open. Queries allowed on fixed tables or views only.
+ORA-06550: line 4, column 5:
+PL/SQL: SQL Statement ignored
+Help: https://docs.oracle.com/error-help/db/ora-06550/
+
+
+GRANT SELECT ANY TABLE ON SCHEMA admin_academia TO rol_lectura_academia
+*
+ERROR at line 1:
+ORA-01109: database not open
+Help: https://docs.oracle.com/error-help/db/ora-01109/
+
+
+GRANT rol_lectura_academia TO rol_secretaria_academia
+*
+ERROR at line 1:
+ORA-01109: database not open
+Help: https://docs.oracle.com/error-help/db/ora-01109/
+
+
+GRANT UPDATE (estado) ON admin_academia.aca_estudiantes TO rol_secretaria_academia
+*
+ERROR at line 1:
+ORA-01109: database not open
+Help: https://docs.oracle.com/error-help/db/ora-01109/
+
+
+GRANT SELECT, UPDATE ON admin_academia.aca_estudiantes TO rol_app_academia
+*
+ERROR at line 1:
+ORA-01109: database not open
+Help: https://docs.oracle.com/error-help/db/ora-01109/
+
+
+== 4. Alta (joiner): una cuenta NOMINAL para una persona de secretaría ==
+  SELECT COUNT(*) INTO n FROM dba_users WHERE username = 'ANA_GARCIA';
+                              *
+ERROR at line 3:
+ORA-06550: line 3, column 31:
+PL/SQL: ORA-01219: Database or pluggable database not open. Queries allowed on fixed tables or views only.
+ORA-06550: line 3, column 3:
+PL/SQL: SQL Statement ignored
+Help: https://docs.oracle.com/error-help/db/ora-06550/
+
+
+GRANT CREATE SESSION, rol_secretaria_academia TO ana_garcia
+*
+ERROR at line 1:
+ORA-01109: database not open
+Help: https://docs.oracle.com/error-help/db/ora-01109/
+
+
+== 5. Pagar la deuda de acceso: APP_ACADEMIA pasa de privilegios sueltos a UN rol ==
+
+PL/SQL procedure successfully completed.
+
+GRANT rol_app_academia TO app_academia
+*
+ERROR at line 1:
+ORA-01109: database not open
+Help: https://docs.oracle.com/error-help/db/ora-01109/
+
+
+== 6. Resultado: quién tiene qué (roles, privilegios de objeto, de esquema y de sistema) ==
+SELECT grantee, granted_role, default_role FROM dba_role_privs
+                                                *
+ERROR at line 1:
+ORA-01219: Database or pluggable database not open. Queries allowed on fixed tables or views only.
+Help: https://docs.oracle.com/error-help/db/ora-01219/
+
+
+SELECT grantee, privilege, schema FROM dba_schema_privs WHERE grantee LIKE 'ROL\_%' ESCAPE '\'
+                                       *
+ERROR at line 1:
+ORA-01219: Database or pluggable database not open. Queries allowed on fixed tables or views only.
+Help: https://docs.oracle.com/error-help/db/ora-01219/
+
+
+SELECT grantee, table_name, privilege FROM dba_tab_privs
+                                           *
+ERROR at line 1:
+ORA-01219: Database or pluggable database not open. Queries allowed on fixed tables or views only.
+Help: https://docs.oracle.com/error-help/db/ora-01219/
+
+
+SELECT grantee, table_name, column_name, privilege FROM dba_col_privs WHERE grantee = 'ROL_SECRETARIA_ACADEMIA'
+                                                        *
+ERROR at line 1:
+ORA-01219: Database or pluggable database not open. Queries allowed on fixed tables or views only.
+Help: https://docs.oracle.com/error-help/db/ora-01219/
+
+
+SELECT grantee, privilege FROM dba_sys_privs WHERE grantee IN ('ANA_GARCIA', 'APP_ACADEMIA') ORDER BY grantee, privilege
+                               *
+ERROR at line 1:
+ORA-01219: Database or pluggable database not open. Queries allowed on fixed tables or views only.
+Help: https://docs.oracle.com/error-help/db/ora-01219/
+
+
+SELECT username, profile, account_status, authentication_type FROM dba_users WHERE username IN ('ANA_GARCIA', 'APP_ACADEMIA') ORDER BY 1
+                                                                   *
+ERROR at line 1:
+ORA-01219: Database or pluggable database not open. Queries allowed on fixed tables or views only.
+Help: https://docs.oracle.com/error-help/db/ora-01219/
+
+
